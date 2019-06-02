@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import _ from 'lodash';
 import './vendor/bootstrap/css/bootstrap.min.css';
 import './fonts/font-awesome-4.7.0/css/font-awesome.min.css';
@@ -26,7 +25,7 @@ class Home extends Component {
 
         const x = _.map(users, user => {
             const steps = user.steps;
-            const today = _.filter(steps, val => val.dateTime === date);
+            const today = _.head(_.filter(steps, val => val.dateTime === date));
             const month = _.sumBy(steps, 'value');
 
             return {
@@ -65,13 +64,7 @@ class Home extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        {/* <tr>
-                                            <td className="column1">1</td>
-                                            <td className="column2">Andrew Smith</td>
-                                            <td className="column3">54</td>
-                                            <td className="column4">235</td>
-                                        </tr> */}
-                                        { v }
+                                    { v }
                                 </tbody>
                             </table>
                         </div>
