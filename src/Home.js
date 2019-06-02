@@ -14,15 +14,36 @@ class Home extends Component {
     render () {
         const { users } = this.props;
 
-        const u = _.map(users, user => <li key={user.id}><Link to={`user/${user.id}`}>{user.fullName} - {user.steps}</Link></li>)
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //As January is 0.
+        var yyyy = today.getFullYear();
+
+        if(dd<10) dd='0'+dd;
+        if(mm<10) mm='0'+mm;
+
+        const date = `${yyyy}-${mm}-${dd}`;
 
         const x = _.map(users, user => {
+            const steps = user.steps;
+            const today = _.filter(steps, val => val.dateTime === date);
+            const month = _.sumBy(steps, 'value');
+
+            return {
+                id: user.id,
+                today: today.value,
+                month: month,
+                fullName: user.fullName,
+            };
+        })
+
+        const v = _.map(x, user => {
             return (
-                <tr>
+                <tr key={user.id}>
                     <td className="column1">{user.id}</td>
                     <td className="column2">{user.fullName}</td>
-                    <td className="column3">{user.steps}</td>
-                    <td className="column4">123</td>
+                    <td className="column3">{user.today}</td>
+                    <td className="column4">{user.month}</td>
                 </tr>
             );
         })
@@ -50,7 +71,7 @@ class Home extends Component {
                                             <td className="column3">54</td>
                                             <td className="column4">235</td>
                                         </tr> */}
-                                        { x }
+                                        { v }
                                 </tbody>
                             </table>
                         </div>

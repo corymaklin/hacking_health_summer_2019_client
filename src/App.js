@@ -22,8 +22,7 @@ class App extends Component {
                   return {
                     id: user._id,
                     fullName: user.fullName,
-                    steps: user.steps,
-                    startTime: user.startTime
+                    steps: user.steps
                   };
               })
 
